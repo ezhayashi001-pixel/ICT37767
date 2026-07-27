@@ -1,0 +1,22 @@
+{% extends "orders/base.html" %}
+{% block title %}รูปไม่ใช่ใบเสร็จ - โปรดอัปโหลดใหม่{% endblock %}
+
+{% block content %}
+<div class="neon-card rounded-2xl p-6 sm:p-8 text-center">
+  <div class="mx-auto h-16 w-16 rounded-full bg-red-700/10 border border-red-500/30 flex items-center justify-center mb-4">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-300" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18L18 6M6 6l12 12"/></svg>
+  </div>
+  <h1 class="text-xl font-bold text-fuchsia-100 neon-text mb-2">รูปที่แนบไม่ใช่ใบเสร็จ</h1>
+  <p class="text-sm text-purple-200/80 mb-6">ระบบตรวจสอบพบว่ารูปที่ส่งมาไม่ใช่ใบเสร็จการโอน กรุณาลองใหม่อีกครั้ง</p>
+
+  <div class="grid gap-3 max-w-md mx-auto">
+    {% if order.payment_method == 'qr_promptpay' %}
+      <a href="{% url 'orders:qr_promptpay' order.pk %}" class="inline-block rounded-lg bg-gradient-to-r from-fuchsia-600 to-purple-600 text-white font-medium px-6 py-2.5">กลับไปแนบใบเสร็จ PromptPay</a>
+    {% else %}
+      <a href="{% url 'orders:create' %}" class="inline-block rounded-lg bg-gradient-to-r from-fuchsia-600 to-purple-600 text-white font-medium px-6 py-2.5">กลับไปหน้าเช็คเงิน/อัปโหลดสลิป</a>
+    {% endif %}
+
+    <a href="{% url 'orders:create' %}" class="text-sm text-purple-200/70 underline">ยกเลิกและกลับสู่หน้าหลัก</a>
+  </div>
+</div>
+{% endblock %}
